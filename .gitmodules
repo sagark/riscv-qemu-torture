@@ -1,0 +1,6 @@
+[submodule "riscv-torture"]
+	path = riscv-torture
+	url = git@github.com:ucb-bar/riscv-torture
+[submodule "riscv-qemu"]
+	path = riscv-qemu
+	url = git@github.com:riscv/riscv-qemu
