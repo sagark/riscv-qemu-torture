@@ -21,7 +21,7 @@ Hacked-together scripts for running `riscv-torture` on `riscv-qemu`.
 
 5) In `riscv-qemu`
 
-    ./configure --target-list=riscv-softmmu
+    ./configure --target-list=riscv64-softmmu,riscv32-softmmu
     make -j16
 
 6) put `runqemu` on path as `runqemu` and `runqemu-debug`
