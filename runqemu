@@ -10,4 +10,4 @@ bina = sys.argv[3]
 p = subprocess.check_call("riscv64-unknown-elf-nm " + bina + " | grep 'begin_signature' > startSIG", shell=True)
 p = subprocess.check_call("riscv64-unknown-elf-nm " + bina + " | grep 'end_signature' > endSIG", shell=True)
 
-p = subprocess.check_call("../riscv-qemu/riscv-softmmu/qemu-system-riscv -nographic -kernel " + bina + " 2> " + sig, shell=True)
+p = subprocess.check_call("../riscv-qemu/riscv64-softmmu/qemu-system-riscv64 -nographic -kernel " + bina + " 2> " + sig, shell=True)

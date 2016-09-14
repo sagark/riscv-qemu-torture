@@ -1,40 +1,41 @@
 diff --git a/hw/riscv/htif/htif.c b/hw/riscv/htif/htif.c
-index 9a6a476..992e980 100644
+index 5d072f4..eca9762 100644
 --- a/hw/riscv/htif/htif.c
 +++ b/hw/riscv/htif/htif.c
-@@ -221,6 +221,40 @@ static void htif_handle_tohost_write(HTIFState *htifstate, uint64_t val_written)
+@@ -222,6 +222,41 @@ static void htif_handle_tohost_write(HTIFState *htifstate, uint64_t val_written)
                  if (payload >> 1) {
                      printf("*** FAILED *** (exitcode = %016lx)\n", payload >> 1);
                  } else {
-+
-+                // get the bounds
-+                uint64_t start = 0x3200;
-+                uint64_t end = 0x3810;
-+                FILE * startfp = fopen("startSIG", "r");
-+                FILE * endfp = fopen("endSIG", "r");
-+                char startstr[17];
-+                char endstr[17];
-+                fgets(startstr, 17, startfp);
-+                fgets(endstr, 17, endfp);
-+                fclose(startfp);
-+                fclose(endfp);
-+
-+                start = strtol(startstr, NULL, 16);
-+                end = strtol(endstr, NULL, 16);
-+
-+                printf("RUNNING WITH START: 0x%016lx\n", start);
-+                printf("RUNNING WITH   END: 0x%016lx\n", end);
-+
-+                void* base = htifstate->main_mem_ram_ptr;
-+
-+//                    FILE *fp = fopen("QEMUOUTPUT", "w");
-+                uint64_t q = start;
-+                for (; q < end; q+= 16) {
-+                    fprintf(stderr, "%016lx", ldq_p((void*)(base + q + 8)));
-+                    fprintf(stderr, "%016lx\n", ldq_p((void*)(base + q)));
-+                }
-+//                    fclose(fp);
-+
+++                // get the bounds
+++                uint64_t start = 0x3200;
+++                uint64_t end = 0x3810;
+++                FILE * startfp = fopen("startSIG", "r");
+++                FILE * endfp = fopen("endSIG", "r");
+++                char startstr[17];
+++                char endstr[17];
+++                fgets(startstr, 17, startfp);
+++                fgets(endstr, 17, endfp);
+++                fclose(startfp);
+++                fclose(endfp);
+++
+++                start = strtol(startstr, NULL, 16);
+++                end = strtol(endstr, NULL, 16);
+++
+++                printf("RUNNING WITH START: 0x%016lx\n", start);
+++                printf("RUNNING WITH   END: 0x%016lx\n", end);
+++
+++                void* base = htifstate->main_mem_ram_ptr;
+++
+++//                    FILE *fp = fopen("QEMUOUTPUT", "w");
+++                uint64_t q = start;
+++                for (; q < end; q+= 16) {
+++                    fprintf(stderr, "%016lx", ldq_p((void*)(base + q + 8)));
+++                    fprintf(stderr, "%016lx\n", ldq_p((void*)(base + q)));
+++                }
+++//                    fclose(fp);
+++
+++
+++
 +
 +
 +
